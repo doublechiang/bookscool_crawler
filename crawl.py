@@ -1,21 +1,47 @@
 import requests
+import logging
+import os
 
 
-title = "https://www.bookscool.com/%E5%93%88%E5%88%A9%E6%B3%A2%E7%89%B92%E6%B6%88%E5%A4%B1%E7%9A%84%E5%AF%86%E5%AE%A4.php/"
-pages = 20
+class BooksCool:
 
-for p in range(1, pages):
-    if p == 1:
-        toc = "{}{:02d}.html#book_toc".format(title, p)
-        print(toc)
-        r = requests.get(toc)
-        open("toc.html", "wb").write(r.content)
+    website_url = "https://www.bookscool.com/"
+    def setTitle(self, title):
+        pass
 
-    url = "{}{:02d}.html".format(title, p)
-    # print(url)
-    # r = requests.get(url)
-    fn = "{:02d}.html".format(p)
-    # open(fn, "wb").write(r.content)
+    def crawl(self):
+        """ Based on the title and pages, save the contents to folder
+        """
+        if not os.path.exists(self.title):
+            os.mkdir(self.title)
+        os.chdir(self.title)
+        for p in range(1, self.pages):
+
+            if p == 1:
+                # Get TOC on the first page
+                url = "{}{}.php/{:02d}.html#book_toc".format(BooksCool.website_url, self.title, p)
+                r = requests.get(url)
+                fn = "toc.html".format(p)
+                open(fn, "wb").write(r.content)
+
+            url = "{}{}.php/{:02d}.html".format(BooksCool.website_url, self.title, p)
+            logging.info(url)
+            r = requests.get(url)
+            fn = "{:02d}.html".format(p)
+            open(fn, "wb").write(r.content)
+
+    def __init__(self, title, pages):
+        self.title = title
+        self.pages = pages
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
+    b = BooksCool('哈利波特2消失的密室', 20)
+    b.crawl()
+
+
+
+
 
 
     
