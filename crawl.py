@@ -39,10 +39,10 @@ if __name__ == '__main__':
 
     # b = BooksCool('哈利波特2消失的密室', 20)
     # b = BooksCool('哈利波特3阿茲卡班的逃犯', 23)
-    # b = BooksCool('哈利波特4火盃的考驗.', 38)
+    b = BooksCool('哈利波特4火盃的考驗', 39)
     # b = BooksCool('哈利波特5鳳凰會的密令', 39)
     # b = BooksCool('哈利波特6混血王子的背叛', 31)
-    b = BooksCool('哈利波特7死神的聖物', 37)
+    # b = BooksCool('哈利波特7死神的聖物', 37)
     b.crawl()
 
 
