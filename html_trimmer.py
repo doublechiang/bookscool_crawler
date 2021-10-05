@@ -19,13 +19,17 @@ class HtmlTrimmer:
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    folder = '哈利波特4火盃的考驗'
+    # folder = '哈利波特4火盃的考驗'
+    # folder = '哈利波特5鳳凰會的密令'
+    # folder = '哈利波特6混血王子的背叛'
+    folder = '哈利波特7死神的聖物'
+    
     trim_folder = '{}/trimmed'.format(folder)
 
     if not os.path.exists(trim_folder):
         os.mkdir(trim_folder)
 
-    for p in range(1, 39):
+    for p in range(1, 38):
         fn = "{}/{:02d}.html".format(folder, p)
         processed = "{}/{:02d}.html".format(trim_folder, p)
         html = open(fn).read()
@@ -35,7 +39,7 @@ if __name__ == '__main__':
 
     # process toc
     fn = "{}/toc.html".format(folder)
-    processed = "{}/toc_trimmed.html".format(folder)
+    processed = "{}/toc_trimmed.html".format(trim_folder)
     html = open(fn).read()
     h = HtmlTrimmer(html)
     content = h.getElemnt('div', {'data-theme': 'b'})
